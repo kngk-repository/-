@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nchar" MaxLength="12" Nullable="false" />
+          <Property Name="Доступ" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Доступ">
+          <Key>
+            <PropertyRef Name="id доступа" />
+          </Key>
+          <Property Name="id доступа" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Тип доступа" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Производитель">
+          <Key>
+            <PropertyRef Name="id производителя" />
+          </Key>
+          <Property Name="id производителя" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Наименование производителя" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Список товаров">
+          <Key>
+            <PropertyRef Name="Наименование товара" />
+          </Key>
+          <Property Name="Фото" Type="image" />
+          <Property Name="Наименование товара" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Описание товара" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Производитель" Type="int" Nullable="false" />
+          <Property Name="Цена" Type="int" Nullable="false" />
+          <Property Name="Размер скидки" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Users_Доступ">
+          <End Role="Доступ" Type="Self.Доступ" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Доступ">
+              <PropertyRef Name="id доступа" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="Доступ" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Список товаров_Производитель">
+          <End Role="Производитель" Type="Self.Производитель" Multiplicity="1" />
+          <End Role="Список товаров" Type="Self.Список товаров" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Производитель">
+              <PropertyRef Name="id производителя" />
+            </Principal>
+            <Dependent Role="Список товаров">
+              <PropertyRef Name="Производитель" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ModelContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Доступ" EntityType="Self.Доступ" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Производитель" EntityType="Self.Производитель" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Список товаров" EntityType="Self.Список товаров" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Users_Доступ" Association="Self.FK_Users_Доступ">
+            <End Role="Доступ" EntitySet="Доступ" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Список товаров_Производитель" Association="Self.FK_Список товаров_Производитель">
+            <End Role="Производитель" EntitySet="Производитель" />
+            <End Role="Список товаров" EntitySet="Список товаров" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="12" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Доступ" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Доступ1" Relationship="Self.FK_Users_Доступ" FromRole="Users" ToRole="Доступ" />
+        </EntityType>
+        <EntityType Name="Доступ">
+          <Key>
+            <PropertyRef Name="id_доступа" />
+          </Key>
+          <Property Name="id_доступа" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Тип_доступа" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Доступ" FromRole="Доступ" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Производитель">
+          <Key>
+            <PropertyRef Name="id_производителя" />
+          </Key>
+          <Property Name="id_производителя" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Наименование_производителя" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Список_товаров" Relationship="Self.FK_Список_товаров_Производитель" FromRole="Производитель" ToRole="Список_товаров" />
+        </EntityType>
+        <EntityType Name="Список_товаров">
+          <Key>
+            <PropertyRef Name="Наименование_товара" />
+          </Key>
+          <Property Name="Фото" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Наименование_товара" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Описание_товара" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Производитель" Type="Int32" Nullable="false" />
+          <Property Name="Цена" Type="Int32" Nullable="false" />
+          <Property Name="Размер_скидки" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Производитель1" Relationship="Self.FK_Список_товаров_Производитель" FromRole="Список_товаров" ToRole="Производитель" />
+        </EntityType>
+        <Association Name="FK_Users_Доступ">
+          <End Role="Доступ" Type="Self.Доступ" Multiplicity="1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Доступ">
+              <PropertyRef Name="id_доступа" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="Доступ" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Список_товаров_Производитель">
+          <End Role="Производитель" Type="Self.Производитель" Multiplicity="1" />
+          <End Role="Список_товаров" Type="Self.Список_товаров" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Производитель">
+              <PropertyRef Name="id_производителя" />
+            </Principal>
+            <Dependent Role="Список_товаров">
+              <PropertyRef Name="Производитель" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OOO_MalishEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="Доступ" EntityType="Self.Доступ" />
+          <EntitySet Name="Производитель" EntityType="Self.Производитель" />
+          <EntitySet Name="Список_товаров" EntityType="Self.Список_товаров" />
+          <AssociationSet Name="FK_Users_Доступ" Association="Self.FK_Users_Доступ">
+            <End Role="Доступ" EntitySet="Доступ" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Список_товаров_Производитель" Association="Self.FK_Список_товаров_Производитель">
+            <End Role="Производитель" EntitySet="Производитель" />
+            <End Role="Список_товаров" EntitySet="Список_товаров" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ModelContainer" CdmEntityContainer="OOO_MalishEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Model.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Model.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Доступ" ColumnName="Доступ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Доступ">
+            <EntityTypeMapping TypeName="Model.Доступ">
+              <MappingFragment StoreEntitySet="Доступ">
+                <ScalarProperty Name="id_доступа" ColumnName="id доступа" />
+                <ScalarProperty Name="Тип_доступа" ColumnName="Тип доступа" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Производитель">
+            <EntityTypeMapping TypeName="Model.Производитель">
+              <MappingFragment StoreEntitySet="Производитель">
+                <ScalarProperty Name="id_производителя" ColumnName="id производителя" />
+                <ScalarProperty Name="Наименование_производителя" ColumnName="Наименование производителя" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Список_товаров">
+            <EntityTypeMapping TypeName="Model.Список_товаров">
+              <MappingFragment StoreEntitySet="Список товаров">
+                <ScalarProperty Name="Фото" ColumnName="Фото" />
+                <ScalarProperty Name="Наименование_товара" ColumnName="Наименование товара" />
+                <ScalarProperty Name="Описание_товара" ColumnName="Описание товара" />
+                <ScalarProperty Name="Производитель" ColumnName="Производитель" />
+                <ScalarProperty Name="Цена" ColumnName="Цена" />
+                <ScalarProperty Name="Размер_скидки" ColumnName="Размер скидки" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

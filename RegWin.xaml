@@ -1,0 +1,54 @@
+﻿<Window x:Class="ООО_Малыш.RegWin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ООО_Малыш"
+        mc:Ignorable="d"
+        Title="Регистрация" Height="350" Width="400"
+        WindowStartupLocation="CenterScreen"
+        Icon="Content/git-gui.ico">
+    <Grid>
+        <StackPanel>
+            <TextBlock Text="Регистрация" 
+                Margin="10" 
+                FontSize="32" 
+                HorizontalAlignment="Center"/>
+
+            <TextBlock Text="Логин"
+                       FontSize="16"
+                       Margin="20,10"/>
+
+            <TextBox x:Name="Log"
+                     Margin="20,0"
+                     Background="#FFE2E2E2"
+                     Height="24"/>
+
+            <TextBlock Text="Пароль"
+                       FontSize="16"
+                       Margin="20,10"/>
+
+            <PasswordBox x:Name="Pass"
+                         Margin="20,0" 
+                         Background="#FFE2E2E2" 
+                         Height="24"/>
+
+            <TextBlock Text="Повторите пароль"
+                       FontSize="16"
+                       Margin="20,10"/>
+
+            <PasswordBox x:Name="Pass2"
+                         Margin="20,0" 
+                         Background="#FFE2E2E2" 
+                         Height="24"/>
+
+            <Button x:Name="RegBtn"
+                    Content="Зарегистрироваться"
+                    Margin="20"
+                    Width="175"
+                    MaxHeight="32"
+                    FontSize="16"
+                    Click="Register"/>
+        </StackPanel>
+    </Grid>
+</Window>
